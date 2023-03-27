@@ -3,9 +3,6 @@
 # IMPORT Sprint Class
 import sprint_class_control as sprint_cc
 
-#CREATE a GLOBAL list containing all instances of Sprint
-sprint_list=[]
-
 #CHECK if user added at least 1 Sprint instance
 def check_sprints(sprint_list_to_check):
     sprint_list_length = len(sprint_list_to_check)
@@ -22,20 +19,20 @@ def input_sprint_info():
     #LOOP through single input series untill all values are correct
     while all_valid == False:
         #ASSIGN user inputs to es (enter_sprint) variables
-        es_name = input("Enter the name of the sprint (max 80 characters): ")
-        es_time_total = input("Enter total duration in months of the sprint (1,...,6): ")
-        es_time_unit = input("Enter iteration duration in weeks for the sprint (1, 2, 4): ")
+        input_name = input("Enter the name of the sprint (max 80 characters): ")
+        input_time_total = input("Enter total duration in months of the sprint (1,...,6): ")
+        input_time_unit = input("Enter iteration duration in weeks for the sprint (1, 2, 4): ")
         #CHECK if inputs are correct data types
         try:
-            es_time_total, es_time_unit = int(es_time_total), int(es_time_unit)
+            input_time_total, input_time_unit = int(input_time_total), int(input_time_unit)
             #CHECK if inputs match requirements
-            if sprint_cc.Sprint.check_input_info(es_name, es_time_total, es_time_unit):
+            if sprint_cc.Sprint.check_input_info(input_name, input_time_total, input_time_unit):
                 all_valid = True
             else:
                 print("\nWARNING: All sprint details must match these criteria:\nSprint name maximum 80 chars\nSprint duration between 1 and 6 months\nIteration duration 1, 2 or 4 weeks\n")
         except ValueError:
             print("\nWARNING: Sprint and iteration duration must be integers\n")
-    return es_name, es_time_total, es_time_unit
+    return input_name, input_time_total, input_time_unit
 
 #LOOP untill user doesn't want to add Sprint instances anymore
 #APPEND new Sprint instance to the sprint_list
@@ -57,8 +54,3 @@ def add_sprints():
         if request_choice == "N":
             new_sprint_request = False
     return loc_sprint_list
-
-#RUN add_sprint function to start appending new sprints to the table
-#ASSIGN returned LOCAL Sprint instance list to GLOBAL Sprint instance list
-sprint_list = add_sprints()
-print(sprint_list)

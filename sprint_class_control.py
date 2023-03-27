@@ -1,9 +1,12 @@
 #SPRINT CLASS CONTROL
+import iteration_class_control as iteration_cc
+import iteration_plan_module as iteration_pm
 
 class Sprint:
     #DECLARE Object instances COUNTER
     object_count = 0
-
+    #CREATE a GLOBAL list containing all instances of Sprint
+    sprint_list=[]
     #CONSTRUCTOR
     def __init__(self, input_name, input_time_total, input_time_unit):
         #UPDATE object_count when creating a new object
@@ -18,8 +21,6 @@ class Sprint:
         #CREATE Iteration instances table for current sprint
         self.iterations_count = int((self.time_total * 4) / self.time_unit)
         self.iterations=[]
-        for unit in range(self.iterations_count):
-            self.iterations.append([])
 
     #REPRESENTATOR
     def __repr__(self):
@@ -40,3 +41,8 @@ class Sprint:
             return True
         else:
             return False
+    
+    def add_iteration(self, iteration_index):
+        iteration_sprint, iteration_name, iteration_goal = iteration_pm.input_iteration_info(self)
+        iteration = iteration_cc.Iteration(iteration_sprint, iteration_name, iteration_goal, iteration_index)
+        self.iterations.append(iteration)
