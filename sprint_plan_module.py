@@ -1,56 +1,54 @@
 # SPRINT PLAN MODULE
-
-# IMPORT Sprint Class
 import sprint_class_control as sprint_cc
+  
+def check_input(name, time_total, time_unit):
+    check_name = len(name) <= 80
+    check_time_total = int(time_total) <= 6
+    check_time_unit = int(time_unit) in range(1,5) and int(time_unit) != 3
+    check_all = check_name and check_time_total and check_time_unit
 
-#CHECK if user added at least 1 Sprint instance
-def check_sprints(sprint_list_to_check):
-    sprint_list_length = len(sprint_list_to_check)
-    if sprint_list_length > 0:
+    if check_all:
+        print("INFO: All conditions correct\n")
         return True
     else:
-        print("Then why would you even start this app?")
+        print("WARNING: All sprint details must match these criteria:\nSprint name maximum 80 chars\nSprint duration 1:6 months\nIteration duration 1, 2, 4 weeks")
         return False
 
-#CHECK if input values for Sprint instance are correct
-def input_sprint_info():
-    #DECLARE variable CONDITION which keeps the loop running untill all values are correct
-    all_valid = False
-    #LOOP through single input series untill all values are correct
-    while all_valid == False:
-        #ASSIGN user inputs to es (enter_sprint) variables
-        input_name = input("Enter the name of the sprint (max 80 characters): ")
-        input_time_total = input("Enter total duration in months of the sprint (1,...,6): ")
-        input_time_unit = input("Enter iteration duration in weeks for the sprint (1, 2, 4): ")
-        #CHECK if inputs are correct data types
-        try:
-            input_time_total, input_time_unit = int(input_time_total), int(input_time_unit)
-            #CHECK if inputs match requirements
-            if sprint_cc.Sprint.check_input_info(input_name, input_time_total, input_time_unit):
-                all_valid = True
-            else:
-                print("\nWARNING: All sprint details must match these criteria:\nSprint name maximum 80 chars\nSprint duration between 1 and 6 months\nIteration duration 1, 2 or 4 weeks\n")
-        except ValueError:
-            print("\nWARNING: Sprint and iteration duration must be integers\n")
-    return input_name, input_time_total, input_time_unit
+def check_types(name, time_total, time_unit):
+    try:
+        name, time_total, time_unit = str(name), int(time_total), int(time_unit)
+        print("\nINFO: All types correct")
+        return True
+    except ValueError:
+        print("\nWARNING: All sprint details must be correct data types: \nSprint name - String\nSprint duration - Integer\nIteration duration - Integer")
+        return False
 
-#LOOP untill user doesn't want to add Sprint instances anymore
-#APPEND new Sprint instance to the sprint_list
-def add_sprints():
-    #CREATE a LOCAL list containing all instances of Sprint
-    loc_sprint_list = []
-    #DECLARE variable CONDITION which keeps the loop running untill user doesn't want to add new Sprint instances
+def check_both(name, time_total, time_unit):
+    if check_types(name, time_total, time_unit):
+        return check_input(name, time_total, time_unit)
+    else:
+        return False
+    
+def input_sprint():
+    all_valid = False
+    while all_valid == False:
+        name = input("\nEnter the name of the sprint (max 80 characters): ")
+        time_total = input("Enter total duration in months of the sprint (1,...,6): ")
+        time_unit = input("Enter iteration duration in weeks for the sprint (1, 2, 4): ")
+        all_valid = check_both(name, time_total, time_unit)
+    return name, int(time_total), int(time_unit)
+
+
+def add_sprint_loop():
     new_sprint_request = True
     while(new_sprint_request):
-        #RUN the input_sprint_info function to add new sprint
-        #ASSIGN results of the function to ns (new_sprint) variables
-        ns_name, ns_time_total, ns_time_unit = input_sprint_info()
-        #CREATE new Sprint instance
-        new_sprint = sprint_cc.Sprint(ns_name,ns_time_total, ns_time_unit)
-        #APPEND new Sprint instance to LOCAL Sprint list
-        loc_sprint_list.append(new_sprint)
-        #CHECK if the user wants to add new Sprint instances
+        name, time_total, time_unit = input_sprint()
+        sprint_cc.Sprint.add_sprint(name, time_total, time_unit)
+
         request_choice = input("Do you want to add a new sprint? (Y/N)")
-        if request_choice == "N":
-            new_sprint_request = False
-    return loc_sprint_list
+        if request_choice.upper() == "N":
+            if sprint_cc.Sprint.check_list:
+                new_sprint_request = False
+            else:
+                print("\nThen why would you even start this app? GOODBYE!")
+                break
