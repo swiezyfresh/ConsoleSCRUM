@@ -4,6 +4,7 @@ class Iteration:
         self.sprint = input_sprint
         self.name = input_name
         self.goal = input_goal
+        self.result = "Fail"
         self.index = input_index
         self.tasks = []
     
