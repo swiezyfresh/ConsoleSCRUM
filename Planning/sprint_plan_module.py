@@ -1,5 +1,5 @@
 # SPRINT PLAN MODULE
-import sprint_class_control as sprint_cc
+import Class_Control.sprint_class_control as sprint_cc
   
 def check_input(name, time_total, time_unit):
     check_name = len(name) <= 80

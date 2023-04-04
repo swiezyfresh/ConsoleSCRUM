@@ -10,8 +10,8 @@ class Iteration:
         self.tasks = []
     #PRINT INFORMATION ABOUT SPECIFIC ITERATION INSTANCE
     def __repr__(self):
-        info = "Iteration {index}\nName: {name}\nGoal: {goal}\nTasks: {tasks}"
-        return info.format(index=self.index, name=self.name, goal=self.goal, tasks=self.tasks)
+        info = "NEW: Iteration {index}\nName: {name}\nGoal: {goal}\n"
+        return info.format(index=self.index, name=self.name, goal=self.goal)
     
     #CREATE ITERATION INSTANCE AND APPEND IT TO SPECIFIC SPRINT ITERATIONS LIST
     def add_iteration(sprint, name, goal, index):
