@@ -12,7 +12,7 @@ class Task:
         self.name = name
         self.number = number
         self.assignment = assignment
-        self.complexity = complexity
+        self.complexity = int(complexity)
         #ASSIGN LATE-USER-INPUT PARAMETER - DEFAULT STATUS
         self.status = "To Do"
     
@@ -20,3 +20,8 @@ class Task:
     def __repr__(self) -> str:
         info = "Id: {id}, Name: {nam}, Number: {num}, Assigned: {ass}, Complexity: {comp}, Status: {stat}"
         return info.format(id=self.id, nam=self.name, num=self.number, ass=self.assignment, comp=self.complexity, stat=self.status)
+    
+    def add_task(name, number, assignment, complexity, iteration):
+        new_task = Task(name, number, assignment, complexity)
+        iteration.tasks.append(new_task)
+        return new_task

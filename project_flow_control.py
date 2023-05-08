@@ -8,4 +8,3 @@ import Execution.sprint_exe_module as sprint_exe
 sprint_pm.add_sprint_loop()
 sprint_exe.exe_sprint_loop()
 
-iteration_cc.Iteration.display_iterations(sprint_cc.Sprint.sprint_list[0])
