@@ -1,7 +1,7 @@
 #TASK CLASS CONTROL
 class Task:
     #CREATE A COUNTER OF ALL NEW INSTANCES OF TASK OBJECT
-    task_count = 0
+    task_count = -1
 
     #CONSTRUCT A NEW TASK INSTANCE
     def __init__(self, name, number, assignment, complexity):
