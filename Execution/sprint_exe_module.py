@@ -15,8 +15,8 @@ def exe_sprint_loop():
 def exe_sprint_summary():
     print("\n==================================")
     print("INFO: Project Completed!")
-    print("INFO: SUMMARY")
-    print("==================================\n")
+    print("==================================")
+    print("INFO: SUMMARY\n")
     for sprint in sprint_list:
         print("Sprint {}: {}".format(sprint.id,sprint.name))
         for iteration in sprint.iterations:
